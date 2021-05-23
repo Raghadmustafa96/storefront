@@ -1,5 +1,12 @@
 # Getting Started with Create React App
 
+# storefront (Application State with Redux)
+
+[deploy link](https://storefront401.herokuapp.com/)
+
+![redux](redux.PNG)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

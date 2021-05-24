@@ -11,8 +11,8 @@ const initialState = {
             description: 'Eat whatever you want, and if someone tries to lecture you about your weight, eat them too!',
         }
     ],
-    activeCategory: 'Electronics',
-    activeDescription: 'In Technology whatever can be done will be done',
+    activeCategory: '',
+    activeDescription: '',
 }
 
 export default function categoryReducer(state = initialState, action) {

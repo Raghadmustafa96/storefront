@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import {Toolbar,Typography, Button } from '@material-ui/core';
+import { Typography, AppBar, Toolbar ,Button} from '@material-ui/core';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(() => ({
   button:
@@ -22,18 +23,22 @@ const useStyles = makeStyles(() => ({
 })
 );
 
-function Header() {
+function Header(props) {
   const classes = useStyles();
   return (
     <AppBar position="static" className={classes.navBar}>
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-        Our Store
-    </Typography>
-        <Button  className={classes.button} color="inherit" >Cart (0)</Button>
+        <Typography variant="h6" className={classes.title}> Our Store </Typography>
+        <Button  className={classes.button} color="inherit" ><ShoppingCartIcon/>({props.cart.cart.length})</Button>
       </Toolbar>
     </AppBar>
   )
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return {
+    cart: state.cart
+  }
+}
+
+export default connect(mapStateToProps)(Header);

@@ -78,7 +78,7 @@ const ProductViewer = (props) => {
         <div className={classes.demo1}>
           <Typography variant="h6" component="h6" style={{ marginLeft: '1rem' }}>Browse our Categories</Typography>
           <AntTabs onChange={handleChange}>
-            <AntTab label="Electronics" onClick={() => props.active('Electronics', 'Electronics is clearly the winner of the day.')} />
+            <AntTab label="Electronics" onClick={() => props.active('Electronics', 'In Technology whatever can be done will be done')} />
             <AntTab label="Food" onClick={() => props.active('Food', 'Eat whatever you want, and if someone tries to lecture you about your weight, eat them too!')} />
           </AntTabs>
           <Typography className={classes.padding} />

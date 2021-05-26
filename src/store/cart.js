@@ -9,8 +9,16 @@ export default function cartReducer(state = initialState, action) {
   switch (type) {
     case 'ADD_TO_CART':
       // console.log(payload.inventoryCount)
-      // console.log(payload)
-      return { ...state , cart: [...state.cart, payload] , inventoryCount:payload.inventoryCount--};
+      console.log('state.cart', state);
+      console.log('payload', payload)
+
+      if (!state.cart.includes(payload)) {
+        return { ...state, cart: [...state.cart, payload], inventoryCount: payload.inventoryCount-- };
+      } 
+      else {
+        return { ...state, cart: [...state.cart], inventoryCount: payload.inventoryCount-- };
+      }
+
     default:
       return state;
   }

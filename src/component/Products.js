@@ -99,12 +99,14 @@ const ProductViewer = (props) => {
                       <Typography component="price">{product.description}</Typography>
                       <br />
                       <br />
-                      <Typography component="inventoryCount">Count :{product.inventoryCount}</Typography>
+                      <Typography component="inventoryCount">  {product.inventoryCount > 0
+                        ? `In stock, ${product.inventoryCount} items`: 'Out of Stock'}</Typography>
+
                       <br />
                       <Typography component="price"> $ {product.price}</Typography>
                     </CardContent>
                     <CardActions>
-                      <IconButton style={{ fontSize: '1.2rem', color: '#586a89' }} onClick={() => props.addToCart(product)}>Add to cart</IconButton>
+                      <IconButton style={{ fontSize: '1.2rem', color: '#586a89' }} onClick={() => props.addToCart(product)} disabled={product.inventoryCount > 0 ? false : true}>Add to cart</IconButton>
                       <IconButton style={{ fontSize: '1.2rem', color: '#586a89' }}>View details</IconButton>
                     </CardActions>
                   </Card>

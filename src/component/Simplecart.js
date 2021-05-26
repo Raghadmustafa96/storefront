@@ -6,12 +6,12 @@ const SimpleCart = (props) => {
     if (props.cart.cart.length > 0) {
         return (
             <>
-                <Card style={{ textAlign: 'left', float: 'right', width: '400px' }}>
+                <Card style={{ position:"absolute",left:'1100px', width: '230' }}>
                     <CardContent>
                         {props.cart.cart.map((product, index) => {
                             return (
-                                <Typography key={product.id} className='cart11'>
-                                    {product.name} : ${product.price}
+                                <Typography key={index} className='cart11'>
+                                    {product.name} : ({ parseInt(product.Count) - parseInt(product.inventoryCount)})
                                 </Typography>
                             )
                         })}

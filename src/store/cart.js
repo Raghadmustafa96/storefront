@@ -1,5 +1,6 @@
 const initialState = {
   cart: [],
+  cartNo:[],
   visible: false
 }
 
@@ -13,14 +14,16 @@ export default function cartReducer(state = initialState, action) {
       console.log('payload', payload)
 
       if (!state.cart.includes(payload)) {
-        return { ...state, cart: [...state.cart, payload], inStock: payload.inStock-- };
+        return { ...state, cartNo: [...state.cartNo, payload], cart: [...state.cart, payload], inStock: payload.inStock-- };
       } 
       else {
-        return { ...state, cart: [...state.cart], inStock: payload.inStock-- };
+        return { ...state,cartNo: [...state.cartNo, payload],  cart: [...state.cart], inStock: payload.inStock-- };
       }
 
       case 'REMOVE_FROM_CART':
         const cart = [...state.cart];
+        const cartNo = [...state.cartNo];
+
         let deleteOne = true;
         const newCart = cart.filter((item) => {
           if (item === payload && deleteOne) {
@@ -29,7 +32,18 @@ export default function cartReducer(state = initialState, action) {
             return false;
           } else { return true; }
         })
-        return { ...state, cart: [...newCart] };
+
+       const newCartNo = cartNo.filter((item) =>{
+        if (item === payload) {
+          item.inStock = item.count;
+          return false;
+        } else { return true; }
+       });
+
+        console.log('newCartNo' , newCartNo);
+        console.log('state.cart' , state.cart);
+
+        return { ...state, cart: [...newCart] , cartNo: [...newCartNo] };
 
     default:
       return state;

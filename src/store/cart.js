@@ -1,5 +1,6 @@
 const initialState = {
   cart: [],
+  cartNo:[],
   visible: false
 }
 
@@ -13,10 +14,10 @@ export default function cartReducer(state = initialState, action) {
       console.log('payload', payload)
 
       if (!state.cart.includes(payload)) {
-        return { ...state, cart: [...state.cart, payload], inventoryCount: payload.inventoryCount-- };
+        return { ...state,cartNo: [...state.cartNo, payload], cart: [...state.cart, payload], inventoryCount: payload.inventoryCount-- };
       } 
       else {
-        return { ...state, cart: [...state.cart], inventoryCount: payload.inventoryCount-- };
+        return { ...state,cartNo: [...state.cartNo, payload], cart: [...state.cart], inventoryCount: payload.inventoryCount-- };
       }
 
     default:

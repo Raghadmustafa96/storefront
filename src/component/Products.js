@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography, Grid, Card, CardHeader, CardContent, CardActions, IconButton, Button, CardMedia, Paper, Tabs, Tab } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { inactive, active } from '../store/categories';
@@ -6,9 +6,9 @@ import { getProducts } from '../store/products';
 import { If, Else, Then } from 'react-if';
 import { addToCart } from '../store/cart.js';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { loadProducts } from '../store/products.js';
 
 //....................................................................
-
 const AntTabs = withStyles({
   root: {
     borderBottom: '1px solid #e8e8e8',
@@ -62,9 +62,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   }
 }));
-//.......................................................................
 
 const ProductViewer = (props) => {
+
+  useEffect(() => {
+    props.loadProducts();
+  }, []);
+
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -78,47 +82,47 @@ const ProductViewer = (props) => {
         <div className={classes.demo1}>
           <Typography variant="h6" component="h6" style={{ marginLeft: '1rem' }}>Browse our Categories</Typography>
           <AntTabs onChange={handleChange}>
-            <AntTab label="Electronics" onClick={() => props.active('Electronics', 'In Technology whatever can be done will be done')} />
-            <AntTab label="Food" onClick={() => props.active('Food', 'Eat whatever you want, and if someone tries to lecture you about your weight, eat them too!')} />
+            <AntTab label="electronics" onClick={() => props.active('electronics', 'In Technology whatever can be done will be done')} />
+            <AntTab label="food" onClick={() => props.active('food', 'Eat whatever you want, and if someone tries to lecture you about your weight, eat them too!')} />
+            <AntTab label="mobile" onClick={() => props.active('mobile', ':}')} />
+
           </AntTabs>
           <Typography className={classes.padding} />
         </div>
       </div>
-      <If condition={props.products}>
-        <Then>
-          <h2 style={{ textAlign: "center", fontSize: '3rem' }}>{props.categories.activeCategory}</h2>
-          <p style={{ textAlign: "center", marginBottom: "2rem" }}>{props.categories.activeDescription}</p>
-          <Grid container justify="center" spacing={4}>
-            {props.products.products.map((product, index) => {
+      {console.log('props.products', props.products)}
+      <h2 style={{ textAlign: "center", fontSize: '3rem' }}>{props.categories.activeCategory}</h2>
+      <p style={{ textAlign: "center", marginBottom: "2rem" }}>{props.categories.activeDescription}</p>
+      <Grid container justify="center" spacing={4}>
+        {props.products.productList.map((product, index) => {
+          if (product.category === props.categories.activeCategory) {
+            if (product.inStock !== 0) {
               return (
                 <Grid item key={index}>
-                  <Card style={{ width: '25rem', height: '40rem' }}>
-                    <img src={product.imgUrl} style={{ width: '25rem', height: '20rem' }} />
+                  <Card style={{ width: '25rem' }}>
                     <CardHeader title={product.name} />
                     <CardContent>
-                      <Typography component="price">{product.description}</Typography>
                       <br />
                       <br />
-                      <Typography component="inventoryCount">  {product.inventoryCount > 0
-                        ? `In stock, ${product.inventoryCount} items`: 'Out of Stock'}</Typography>
+                      <Typography component="inStock">  {product.inStock > 0
+                        ? `In stock, ${product.inStock} items` : 'Out of Stock'}</Typography>
 
                       <br />
                       <Typography component="price"> $ {product.price}</Typography>
                     </CardContent>
                     <CardActions>
-                      <IconButton style={{ fontSize: '1.2rem', color: '#586a89' }} onClick={() => props.addToCart(product)} disabled={product.inventoryCount > 0 ? false : true}>Add to cart</IconButton>
+                      <IconButton style={{ fontSize: '1.2rem', color: '#586a89' }} onClick={() => props.addToCart(product)} disabled={product.inStock > 0 ? false : true}>Add to cart</IconButton>
                       <IconButton style={{ fontSize: '1.2rem', color: '#586a89' }}>View details</IconButton>
                     </CardActions>
                   </Card>
                 </Grid>
               )
-            })}
-          </Grid>
-        </Then>
-        <Else>
-          <div></div>
-        </Else>
-      </If>
+            }
+          } else {
+            return null;
+          }
+        })}
+      </Grid>
     </>
   );
 }
@@ -132,6 +136,7 @@ const mapDispatchToProps = {
   inactive,
   getProducts,
   addToCart,
+  loadProducts,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductViewer);

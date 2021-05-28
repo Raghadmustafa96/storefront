@@ -2,12 +2,12 @@ const initialState = {
     categoryList: [
         {
             id: 'eee111eee',
-            name: 'Electronics',
+            name: 'electronics',
             description: 'In Technology whatever can be done will be done',
         },
         {
             id: 'fff111fff1',
-            name: 'FOOD',
+            name: 'food',
             description: 'Eat whatever you want, and if someone tries to lecture you about your weight, eat them too!',
         }
     ],

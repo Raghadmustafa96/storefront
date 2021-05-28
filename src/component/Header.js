@@ -29,7 +29,8 @@ function Header(props) {
     <AppBar position="static" className={classes.navBar}>
       <Toolbar>
         <Typography variant="h6" className={classes.title}> Our Store </Typography>
-        <Button  className={classes.button} color="inherit" ><ShoppingCartIcon/>({props.cart.cart.length})</Button>
+        {console.log('props.cart.cart',props.cart)}
+        <Button  className={classes.button} color="inherit" ><ShoppingCartIcon/>({props.cart.cartNo.length})</Button>
       </Toolbar>
     </AppBar>
   )

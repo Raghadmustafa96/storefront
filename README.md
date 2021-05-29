@@ -2,7 +2,7 @@
 
 # storefront (Redux - Combined Reducers)
 
-[deploy link](https://storefront401b.herokuapp.com/)
+[deploy link](https://storefront401c.herokuapp.com/)
 
 ![redux](redux2.PNG)
 
